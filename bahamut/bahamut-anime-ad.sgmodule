@@ -1,0 +1,16 @@
+#!name=巴哈姆特动画疯视频广告过滤
+#!desc=适用于 Surge iOS 的动画疯广告过滤模块，过滤指定视频广告位并保留原生图片广告。使用前请开启 Rewrite、MITM，并安装及信任证书。图片广告可能保留倒计时。
+
+# 视频：AdMob slotname=1752047011、GAM iu=/1017768/ANI_REWARDED_IOS。
+# 视频 VAST：GET iu=/76486173/Embed/bt_ios_30s，且 App 标识与动画疯描述地址匹配。
+# 图片：原样放行 slotname=1910200398、3865483732 的 320x50_mb 原生广告请求。
+# 按 App 标识、请求格式及广告位匹配；广告服务调整后可能需要更新规则。
+# token.php、stat_ad.php、video_src.php 均原样放行；由 App 处理图片广告及结束流程。
+# 更新模块后请重新载入，并重启动画疯。
+
+[Script]
+bahamut-anime-admob-video = type=http-request,pattern=^https://googleads\.g\.doubleclick\.net/mads/gma(?:\?|$),requires-body=true,script-path=https://raw.githubusercontent.com/trimness4264/sgmodule/main/bahamut/bahamut-anime-ad.js?v=20261025-video-only
+bahamut-anime-gam-video = type=http-request,pattern=^https://pubads\.g\.doubleclick\.net/gampad/ads(?:\?|$),requires-body=true,script-path=https://raw.githubusercontent.com/trimness4264/sgmodule/main/bahamut/bahamut-anime-ad.js?v=20261025-video-only
+
+[MITM]
+hostname = %APPEND% googleads.g.doubleclick.net, pubads.g.doubleclick.net
