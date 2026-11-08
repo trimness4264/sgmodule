@@ -1,9 +1,6 @@
 #!name=LocalDevVPN Replacement
 #!desc=通过 Surge 实现 10.7.0.1 本机回环
 
-[General]
-tun-included-routes = %INSERT% 10.7.0.1/32
-
 [IP Rewrite]
 10.7.0.1 = reflect
 
